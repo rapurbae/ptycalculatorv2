@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Productivity Profit Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .time-call-section {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .time-call-header {
+      background-color: #6c757d;
+      color: #ffc107;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    
+    .time-call-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: rgb(109, 109, 109);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .time-call-table th {
+      background-color: #262626;
+      color: #ffc107;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .time-call-table td {
+      padding: 12px;
+      text-align: center;
+    }
+    
+    .time-call-table tr:nth-child(even) {
+      background-color: #4c4c4c;
+    }
+    
+    .phase-name {
+      text-align: left;
+      font-weight: 500;
+      color: #ffffff;
+    }
+    
+    .time-display {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #6c757d;
+      background-color: #f8f9fa;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #dee2e6;
+    }
+    
+    .recorded-time {
+      color: #28a745;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+    
+    .klik-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+    
+    .klik-button:hover {
+      background-color: #0056b3;
+      transform: translateY(-1px);
+    }
+    
+    .klik-button:active {
+      transform: translateY(0);
+    }
+    
+    .reset-button {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
+      transition: all 0.2s ease;
+    }
+    
+    .reset-button:hover {
+      background-color: #c82333;
+    }
+    
+    .summary-section {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e3f2fd;
+      border-radius: 6px;
+      border-left: 4px solid #2196f3;
+    }
+    
+    .summary-title {
+      color: #1976d2;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      padding: 5px 0;
+    }
+    
+    .summary-value {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #1976d2;
+    }
+  </style>
+</head>
+<body>
+    <h1>Profit Productivity Calculator for Excavator and Dump Truck at MAA Site OBI</h1>
+    <div class="tabs">
+      <button class="tab" onclick="location.href='index.html'">MATERIAL OB</button>
+      <button class="tab active">MATERIAL LGL</button>
+      <button class="tab" onclick="location.href='hglmgl.html'">MATERIAL MGL & HGL</button>
+      <button class="tab" onclick="location.href='saprolite.html'">MATERIAL SAPROLITE</button>
+    </div>
+  <div class="container">
+    
+
+    <form id="calc-form">
+
+      <section class="info-section">
+        <h2>INFORMASI UMUM</h2>
+        <label for="area">Area</label>
+        <input type="text" placeholder="Area" id="area">
+        <label for="cuaca">Cuaca</label>
+        <input type="text" placeholder="Cuaca" id="cuaca">
+      </section>
+
+      <section>
+        <h2>DATA EXCAVATOR</h2>
+        <label for="">Bucket Capacity (Bcm)</label>
+        <input type="number" step="any" placeholder="Bucket Capacity (Bcm)" id="bucketCapacity" required>
+        <label for="">Bucket Fill Factor</label>
+        <input type="number" step="any" placeholder="Bucket Fill Factor" id="fillFactor" required>
+        <label for="">Total Bucket</label>
+        <input type="number" step="any" placeholder="Total Bucket" id="totalBucket" required>
+      </section>
+
+      <!-- TIME CALL SECTION -->
+        <h2>DATA CYCLE TIME EXCAVATOR</h2>
+        <table class="time-call-table">
+          <thead>
+            <tr>
+              <th>Tahapan</th>
+              <th>Waktu<br>(HH:MM:SS.mmm)</th>
+              <th>Catat Jam</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="phase-name">Start Loading</td>
+              <td><span class="time-display" id="start-loading-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('startLoading')">Klik</button></td>
+            </tr>
+            <tr>
+              <td class="phase-name">Digging Time</td>
+              <td><span class="time-display" id="digging-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('digging')">Klik</button></td>
+            </tr>
+            <tr>
+              <td class="phase-name">Spotting Time 1</td>
+              <td><span class="time-display" id="spotting1-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('spotting1')">Klik</button></td>
+            </tr>
+            <tr>
+              <td class="phase-name">Swing Load Time</td>
+              <td><span class="time-display" id="swing-load-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('swingLoad')">Klik</button></td>
+            </tr>
+            <tr>
+              <td class="phase-name">Spotting Time 2</td>
+              <td><span class="time-display" id="spotting2-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('spotting2')">Klik</button></td>
+            </tr>
+            <tr>
+              <td class="phase-name">Dumping Time Exca 300</td>
+              <td><span class="time-display" id="dumping-exca-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('dumpingExca')">Klik</button></td>
+            </tr>
+            <tr>
+              <td class="phase-name">Spotting Time 3</td>
+              <td><span class="time-display" id="spotting3-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('spotting3')">Klik</button></td>
+            </tr>
+            <tr>
+              <td class="phase-name">Swing Empty Time</td>
+              <td><span class="time-display" id="swing-empty-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('swingEmpty')">Klik</button></td>
+            </tr>
+            <tr>
+              <td class="phase-name">Spotting Time 4</td>
+              <td><span class="time-display" id="spotting4-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('spotting4')">Klik</button></td>
+            </tr>
+          </tbody>
+          <input type="hidden" id="startLoading">
+          <input type="hidden" id="digging">
+          <input type="hidden" id="spotting1">
+          <input type="hidden" id="swingLoad">
+          <input type="hidden" id="spotting2">
+          <input type="hidden" id="dumpingExca">
+          <input type="hidden" id="spotting3">
+          <input type="hidden" id="swingEmpty">
+          <input type="hidden" id="spotting4">
+
+        </table>
+        
+        <button type="button" class="reset-button" onclick="resetTimeCall()">Reset Time Call</button>
+
+      <section>
+        <h2>DATA DUMP TRUCK</h2>
+        <label for="">Vessel Capacity (Bcm)</label>
+        <input type="number" step="any" placeholder="Vessel Capacity (Bcm)" id="vesselCapacity" required>
+      </section>
+
+      <h2>DATA CYCLE TIME DUMP TRUCK</h2>
+        <table class="time-call-table">
+          <thead>
+            <tr>
+              <th>Tahapan</th>
+              <th>Waktu<br>(HH:MM:SS.mmm)</th>
+              <th>Catat Jam</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="phase-name">Start Loading</td>
+              <td><span class="time-display" id="start-loading-time-dt">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('startLoadingdt')">Klik</button></td>
+            </tr>
+            <tr>
+              <td class="phase-name">Manuver Time </td>
+              <td><span class="time-display" id="manuver-time">-</span></td>
+              <td><button type="button" class="klik-button" onclick="recordTime('manuver')">Klik</button></td>
+            </tr>
+          </tbody>
+          <input type="hidden" id="startLoadingdt">
+          <input type="hidden" id="manuver">
+
+        </table>
+        
+        <button type="button" class="reset-button" onclick="resetTimeCall()">Reset Time Call</button>
+
+      <section>
+        <h2>DATA TAMBAHAN</h2>
+        <label for="">Kurs Rupiah (Rp)</label>
+        <input type="number" step="any" placeholder="Kurs Rupiah (Rp)" id="kursRupiah" required>
+        <label for="">Hauling Distance (meters)</label>
+        <input type="number" step="any" placeholder="Hauling Distance (meters)" id="haulingDistance" required>
+        <label for="">Overtime Shift</label>
+        <input type="number" step="any" placeholder="Overtime Shift" id="overtimeshift" required>
+        <label for="">Total Excavator 300</label>
+        <input type="number" step="any" placeholder="Total Excavator 300" id="exca300" required>
+        <label for="">Total Excavator 200 Trimming (Unit)</label>
+        <input type="number" step="any" placeholder="Total Excavator 200 Trimming (Unit)" id="exca200" required>
+        <label for="">Total Excavator 200 Selective (Unit)</label>
+        <input type="number" step="any" placeholder="Total Excavator 200 Selective (Unit)" id="exca200sel" required>
+        <label for="">Total Dozer (Unit)</label>
+        <input type="number" step="any" placeholder="Total Dozer (Unit)" id="dozer" required>
+      </section>
+
+      <button type="submit">CALCULATE</button>
+
+      <section id="results">
+        <h3>Calculation results</h3>
+        <div id="output"></div>
+      </section>
+    </form>
+</div>
+
+<footer>Create By Akmal Fauzi</footer>
+  <script src="lgl.js"></script>
+</body>
+
+</html>
