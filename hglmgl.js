@@ -53,6 +53,7 @@ document.getElementById("calc-form").addEventListener("submit", function (e) {
   const EX200 = parseFloat(document.getElementById("exca200").value);
   const EX200SEL = parseFloat(document.getElementById("exca200sel").value);
   const DOZER = parseFloat(document.getElementById("dozer").value);
+  const TDT = parseFloat(document.getElementById("dt").value);
 
   // Konstanta MATERIAL HGL & MGL
   const MP = 4.2;
@@ -138,7 +139,7 @@ document.getElementById("calc-form").addEventListener("submit", function (e) {
   // Cost
   const fuelExca300 = FE300 * FC * EX300;
   const fuelExca200 = (EX200 + EX200SEL) * FE200 * FC;
-  const fuelDT = FM * FDT * FC;
+  const fuelDT = TDT * FDT * FC;
   const fuelDZ = DOZER * FDZ * FC;
 
   //total overtime
@@ -152,11 +153,11 @@ document.getElementById("calc-form").addEventListener("submit", function (e) {
 
   const costExca300 = fuelExca300 + (EX300 * (DE300 + CM300 + SO));
   const costExca200 = fuelExca200 + ((EX200 + EX200SEL) * (DE200 + SO + CM200));
-  const costDT = fuelDT + (FM * (DDT + SO + CMDT));
+  const costDT = fuelDT + (TDT * (DDT + SO + CMDT));
   const costDZ = fuelDZ + (DOZER * (DDZ + SO + CMDZ));
-  const POH = (EX300 + EX200 + FM + DOZER + EX200SEL) * (CC / 30);
-  const GAOP = ((EX300 + EX200 + FM + DOZER + EX200SEL) * 0.5 * PMC * 3) + ((EX300 + EX200 + FM + DOZER + EX200SEL) * 0.5 * PMC * 4) + ((EX300 + EX200 + FM + DOZER + EX200SEL) * 0.5 * SGAC);
-  const HSOP = (EX300 + EX200 + FM + DOZER + EX200SEL) * HSEC;
+  const POH = (EX300 + EX200 + TDT + DOZER + EX200SEL) * (CC / 30);
+  const GAOP = ((EX300 + EX200 + TDT + DOZER + EX200SEL) * 0.5 * PMC * 3) + ((EX300 + EX200 + TDT + DOZER + EX200SEL) * 0.5 * PMC * 4) + ((EX300 + EX200 + TDT + DOZER + EX200SEL) * 0.5 * SGAC);
+  const HSOP = (EX300 + EX200 + TDT + DOZER + EX200SEL) * HSEC;
 
   const costTotal = costExca300 + costExca200 + costDT + costDZ + POH + GAOP + HSOP;
 
