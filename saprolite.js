@@ -175,7 +175,7 @@ document.getElementById("calc-form").addEventListener("submit", function (e) {
   const formatR = revTotal.toLocaleString("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 });
   const formatIDR = profitIDR.toLocaleString("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 });
 
-  fetch("https://script.google.com/macros/s/AKfycbwfIK9u1BHK0tLPRqoLaZTERd2uDte88hS4wC-iHBgsA5dExuYBkcEsxutTJ6UJebI4/exec", {
+  fetch("https://script.google.com/macros/s/AKfycby6Es8Skno_gsjeqB7VTBTnteAnsi_WHigB2VIJtoSwpRfuDuUEYDrf8gdiymov8P46/exec", {
   method: "POST",
   headers: { "Content-Type": "application/x-www-form-urlencoded" },
   body: new URLSearchParams({
@@ -224,6 +224,7 @@ document.getElementById("calc-form").addEventListener("submit", function (e) {
   <input type="text" value="${formatIDR}" readonly>
   `;
 });
+
 
 
 
