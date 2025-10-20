@@ -169,7 +169,7 @@ document.getElementById("calc-form").addEventListener("submit", function (e) {
   const formatR = revTotal.toLocaleString("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 });
   const formatIDR = profitIDR.toLocaleString("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 });
 
-  fetch("https://script.google.com/macros/s/AKfycby6Es8Skno_gsjeqB7VTBTnteAnsi_WHigB2VIJtoSwpRfuDuUEYDrf8gdiymov8P46/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbxBkxFhZT9N2Z400MA7dddI7Bgogj8GX6T7dWqvBeUEzwi3I7FUcUh8V7Fz1a9irpSE/exec", {
   method: "POST",
   headers: { "Content-Type": "application/x-www-form-urlencoded" },
   body: new URLSearchParams({
@@ -219,6 +219,7 @@ document.getElementById("calc-form").addEventListener("submit", function (e) {
 `;
 
 });
+
 
 
 
